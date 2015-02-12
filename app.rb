@@ -30,7 +30,7 @@ end
 #
 # POST /users - create a user based on params from form
 post '/users' do
-  return "Please add values before clicking the 'Add User' button" if params[:first]==nil || params[:last]==nil
+  return "Please add values before clicking the 'Add User' button" if params[:first]=="" || params[:last]==""
   uhash = {}
   uhash[:id] = id
   uhash[:first] = params[:first]
