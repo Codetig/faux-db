@@ -42,13 +42,17 @@ end
 #
 # GET /users/:id - show a user's info by their id, this should display the info in a form
 get '/users/:id' do
-  @user = users[params[:id].to_i - 1]
+  @user = users.find do |x|
+    x[:id] == params[:id].to_i
+  end
   erb :user_detail
 end
 #
 # PUT /users/:id - update a user's info based on the form from GET /users/:id
 put '/users/:id' do
-  namer = users[params[:id].to_i - 1]
+  namer = users.find do |x|
+    x[:id] == params[:id].to_i
+  end
   namer[:first] = params[:first]
   namer[:last] = params[:last]
   redirect to '/'
@@ -56,7 +60,9 @@ end
 #
 # DELETE /users/:id - delete a user by their id
 delete '/users/:id' do
-  users.delete_at(params[:id].to_i - 1)
+  users.delete_if{|x|
+    x[:id] == params[:id].to_i
+  }
   redirect to '/'
 end
 
